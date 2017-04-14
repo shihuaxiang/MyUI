@@ -1,0 +1,51 @@
+/* golbal
+CustomDialog {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #fff, stop:1 #f2f2f2);
+    border-radius: 3px;
+}*/
+
+QWidget #centralWidget {
+    background-color: rgba(255,255,255,255);
+}
+
+CustomDialog QLineEdit {
+    background: transparent;
+    border: none;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 14px;
+    color: #333;
+}
+
+CustomDialog QLabel#labelLine {
+    background-color: #e7e7e7;
+}
+
+/*
+CustomDialog QLabel#labelLine:hover {
+    background: #2bc785;
+}
+*/
+
+CustomDialog QComboBox {
+    background: transparent;
+    border:none;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 14px;
+    color: #666;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+CustomDialog QComboBox::drop-down {
+    background: transparent;
+    border: none;
+}
+
+CustomDialog QComboBox#comboBoxZone::down-arrow {
+    image: url(:/shadowdialog/images/cb_dropdown_gray.png);
+    margin-top: 3px;
+}
+
+CustomDialog QComboBox QAbstractItemView {
+    border: none;
+}

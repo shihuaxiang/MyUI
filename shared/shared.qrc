@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/shared">
+        <file>images/close_hover.png</file>
+        <file>images/close_normal.png</file>
+        <file>images/min_hover.png</file>
+        <file>images/min_normal.png</file>
+        <file>images/shadow.png</file>
+    </qresource>
+</RCC>

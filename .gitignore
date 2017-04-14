@@ -1,0 +1,14 @@
+genvcproj.bat
+/bin
+/*/Debug
+/*/Release
+/*/win32
+/*/GeneratedFiles
+/*/*.vcxproj
+/*/*.vcxproj.user
+/*/*.vcxproj.filters
+*.pro.user
+*.sln
+*.sdf
+*.opensdf
+*.suo

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     shadowdialog/simpledialog.cpp \
     shadowdialog/customdialog.cpp \
     shared/QCustomLineEdit.cpp \
-    shadowdialog/stackeddialog.cpp
+    shadowdialog/stackeddialog.cpp \
+    shadowdialog/anothershadowwidget.cpp
 
 HEADERS  += \
     shared/movable.h \
@@ -31,14 +32,20 @@ HEADERS  += \
     shadowdialog/simpledialog.h \
     shadowdialog/customdialog.h \
     shared/QCustomLineEdit.h \
-    shadowdialog/stackeddialog.h
+    shadowdialog/stackeddialog.h \
+    shadowdialog/anothershadowwidget.h
 
 FORMS    += \
     shadowdialog/simpledialog.ui \
-    shadowdialog/stackeddialog.ui
+    shadowdialog/stackeddialog.ui \
+    shadowdialog/anothershadowwidget.ui
 
 RESOURCES += \
     shared/shared.qrc \
     shadowdialog/shadowdialog.qrc
 
 DISTFILES +=
+
+INCLUDEPATH += $$PWD/
+INCLUDEPATH += $$PWD/shared/
+

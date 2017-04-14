@@ -19,6 +19,7 @@ private slots:
     void on_pushButton_0_0_clicked();
     void on_pushButton_0_1_clicked();
     void on_pushButton_0_2_clicked();
+    void on_pushButton_0_3_clicked();
 
 private:
     QGridLayout * initGridLayout();

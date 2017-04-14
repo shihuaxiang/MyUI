@@ -3,7 +3,6 @@
 //
 
 #include "customdialog.h"
-#include "ui_customdialog.h"
 #include <QVBoxLayout>
 #include "../shared/TitleBar.h"
 #include "../shared/QCustomLineEdit.h"

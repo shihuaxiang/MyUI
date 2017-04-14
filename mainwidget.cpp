@@ -5,6 +5,7 @@
 #include "shadowdialog/stackeddialog.h"
 #include "shadowdialog/simpledialog.h"
 #include "shadowdialog/customdialog.h"
+#include "shadowdialog/anothershadowwidget.h"
 
 MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
 {
@@ -61,4 +62,12 @@ void MainWidget::on_pushButton_0_2_clicked()
 
     StackedDialog dlg;
     dlg.exec();
+}
+
+void MainWidget::on_pushButton_0_3_clicked()
+{
+    qDebug() << __FUNCTION__;
+
+    AnotherShadowWidget * w = new AnotherShadowWidget();
+    w->show();
 }

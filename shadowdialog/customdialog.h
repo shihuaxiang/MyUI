@@ -18,11 +18,16 @@ public:
     explicit CustomDialog(QWidget *parent = 0);
     ~CustomDialog();
 
+private slots:
+    void onChecked(bool bChecked);
+
 private:
     void        initMainLayout();
     TitleBar *  initTitlebar();
     QLayout *   initAccountRegion();
     QLayout *   initPwdRegion();
+    QLayout *   initAgreementRegion();
+    QLayout *   initButtonRegion();
 
     QWidget *centralWidget;
     QDialogButtonBox *buttonBox;
@@ -33,6 +38,8 @@ private:
 
     QCustomLineEdit*    m_pLineEditPwd = NULL;
     QLabel*             m_pLinePwd = NULL;
+
+    QPushButton*        m_pBtnRegister = NULL;
 };
 
 #endif // CUSTOMDIALOG_H

@@ -21,7 +21,10 @@ SOURCES += main.cpp\
     shadowdialog/customdialog.cpp \
     shared/QCustomLineEdit.cpp \
     shadowdialog/stackeddialog.cpp \
-    shadowdialog/anothershadowwidget.cpp
+    shadowdialog/anothershadowwidget.cpp \
+    diffsize/leftbar.cpp \
+    diffsize/NumberButton.cpp \
+    shared/imagefactory.cpp
 
 HEADERS  += \
     shared/movable.h \
@@ -33,7 +36,10 @@ HEADERS  += \
     shadowdialog/customdialog.h \
     shared/QCustomLineEdit.h \
     shadowdialog/stackeddialog.h \
-    shadowdialog/anothershadowwidget.h
+    shadowdialog/anothershadowwidget.h \
+    diffsize/leftbar.h \
+    diffsize/NumberButton.h \
+    shared/imagefactory.h
 
 FORMS    += \
     shadowdialog/simpledialog.ui \
@@ -42,7 +48,8 @@ FORMS    += \
 
 RESOURCES += \
     shared/shared.qrc \
-    shadowdialog/shadowdialog.qrc
+    shadowdialog/shadowdialog.qrc \
+    diffsize/diffsize.qrc
 
 DISTFILES +=
 

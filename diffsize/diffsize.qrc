@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/boardeditor-hover.png</file>
+        <file>images/boardeditor-normal.png</file>
+        <file>images/boardeditor-pressed.png</file>
+        <file>images/chat-hover.png</file>
+        <file>images/chat-normal.png</file>
+        <file>images/chat-selected.png</file>
+        <file>images/clouddisk-hover.png</file>
+        <file>images/clouddisk-normal.png</file>
+        <file>images/clouddisk-selected.png</file>
+        <file>images/contacts-hover.png</file>
+        <file>images/contacts-normal.png</file>
+        <file>images/contacts-selected.png</file>
+        <file>images/course-hover.png</file>
+        <file>images/course-normal.png</file>
+        <file>images/course-selected.png</file>
+        <file>images/devicecheck-hover.png</file>
+        <file>images/devicecheck-normal.png</file>
+        <file>images/devicecheck-pressed.png</file>
+        <file>images/notice-hover.png</file>
+        <file>images/notice-normal.png</file>
+        <file>images/notice-pressed.png</file>
+        <file>images/set-hover.png</file>
+        <file>images/set-normal.png</file>
+        <file>images/set-pressed.png</file>
+        <file>leftbar.qss</file>
+    </qresource>
+</RCC>

@@ -3,10 +3,17 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+
+#ifdef Q_OS_MAC
+	QFont appFont("Helvetica Neue");
+#else
+	QFont appFont("Microsoft YaHei");
+#endif
+	app.setFont(appFont);
 
     MainWidget w;
     w.show();
 
-    return a.exec();
+    return app.exec();
 }

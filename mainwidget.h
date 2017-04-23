@@ -20,10 +20,13 @@ private slots:
     void on_pushButton_0_1_clicked();
     void on_pushButton_0_2_clicked();
     void on_pushButton_0_3_clicked();
+    void on_pushButton_0_4_clicked();
+    void on_pushButton_0_5_clicked();
+    void onChatButtonClicked();
 
 private:
     QGridLayout * initGridLayout();
-
+    QWidget * m_pWidget = NULL;
 };
 
 #endif // MAINWIDGET_H

@@ -1,0 +1,63 @@
+SimpleDialog QWidget#widget {
+    background-color:rgba(255,255,255,255);
+}
+
+
+SimpleDialog QLabel {
+    background: transparent;
+    border: none;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 14px;
+    color: #202020;
+}
+
+SimpleDialog QLineEdit#lineEdit {
+    background: #fff;
+    border: 1px solid #ccc;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 14px;
+    color: #202020;
+    min-height: 32px;
+    max-height: 32px;
+}
+
+SimpleDialog QDateEdit {
+    background: #fff;
+    border: 1px solid #ccc;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 14px;
+    color: #202020;
+}
+
+SimpleDialog QComboBox {
+    background: #fff;
+    border: 1px solid #ccc;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 14px;
+    color: #202020;
+}
+
+/* button region*/
+SimpleDialog QPushButton {
+    background: #1cba77;
+    border: none;
+    border-radius: 3px;
+    font-family: "\'Microsoft YaHei\'";
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+SimpleDialog QPushButton:hover {
+    background: #2bc785;
+}
+
+SimpleDialog QPushButton:pressed {
+    background: #069558;
+}
+
+SimpleDialog QPushButton:disabled  {
+    background: #999;
+}

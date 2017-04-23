@@ -1,0 +1,58 @@
+QWidget#leftBar{
+    background-color: #434555;
+}
+
+QPushButton#avatarButton{
+    border: 2px solid #686a77;
+    border-radius: 20px;
+}
+
+/*
+QWidget#middleWidget{
+    background-color: gray;
+}
+
+QWidget#bottomWidget{
+    background-color: gray;
+}
+*/
+
+QPushButton#chatButton{
+    border: none;
+    qproperty-icon: url(":/images/chat-selected.png");
+}
+
+QPushButton#contactButton{
+    border: none;
+    qproperty-icon: url(":/images/contacts-normal.png");
+}
+
+QPushButton#courseButton{
+    border: none;
+    qproperty-icon: url(":/images/course-normal.png");
+}
+
+QPushButton#cloudButton{
+    border: none;
+    qproperty-icon: url(":/images/clouddisk-normal.png");
+}
+
+QPushButton#noticeCenterButton{
+    border: none;
+    qproperty-icon: url(":/images/notice-normal.png");
+}
+
+QPushButton#boardEditorButton{
+    border: none;
+    qproperty-icon: url(":/images/boardeditor-normal.png");
+}
+
+QPushButton#deviceCheckButton{
+    border: none;
+    qproperty-icon: url(":/images/devicecheck-normal.png");
+}
+
+QPushButton#settingButton{
+    border: none;
+    qproperty-icon: url(":/images/set-normal.png");
+}

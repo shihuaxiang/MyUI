@@ -8,6 +8,7 @@
 #include "../shared/QCustomLineEdit.h"
 #include <QGraphicsDropShadowEffect>
 #include <QFile>
+#include <QCheckBox>
 
 #define SHADOW_MARGIN_SIZE (10)
 
@@ -39,12 +40,15 @@ CustomDialog::~CustomDialog()
 void CustomDialog::initMainLayout()
 {
     QVBoxLayout *vLayout = new QVBoxLayout;
-    vLayout->setContentsMargins(24, 0, 24, 0);
+    vLayout->setContentsMargins(24, 24, 24, 24);
     vLayout->setSpacing(0);
     vLayout->addLayout(initAccountRegion());
     vLayout->addSpacerItem(new QSpacerItem(0, 21, QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
     vLayout->addLayout(initPwdRegion());
     vLayout->addSpacerItem(new QSpacerItem(0, 26, QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
+    vLayout->addLayout(initAgreementRegion());
+    vLayout->addSpacerItem(new QSpacerItem(0, 57, QSizePolicy::Expanding, QSizePolicy::MinimumExpanding));
+    vLayout->addLayout(initButtonRegion());
     vLayout->addStretch(0);
     vLayout->addWidget(buttonBox);
     centralWidget->setLayout(vLayout);
@@ -85,7 +89,7 @@ TitleBar * CustomDialog::initTitlebar()
     return titlebarWidget;
 }
 
-QLayout *CustomDialog::initAccountRegion()
+QLayout * CustomDialog::initAccountRegion()
 {
     m_pComboBoxZone = new QComboBox(this);
     m_pComboBoxZone->setObjectName("comboBoxZone");
@@ -143,7 +147,7 @@ QLayout *CustomDialog::initAccountRegion()
     return pLayout;
 }
 
-QLayout *CustomDialog::initPwdRegion()
+QLayout * CustomDialog::initPwdRegion()
 {
     m_pLineEditPwd = new QCustomLineEdit(this);
     m_pLineEditPwd->setPlaceholderText(tr("Set password"));
@@ -160,6 +164,51 @@ QLayout *CustomDialog::initPwdRegion()
     pLayout->addWidget(m_pLineEditPwd);
     pLayout->addSpacerItem(new QSpacerItem(0, 7, QSizePolicy::Expanding, QSizePolicy::Fixed));
     pLayout->addWidget(m_pLinePwd);
+    pLayout->setSpacing(0);
+    pLayout->setContentsMargins(0, 0, 0, 0);
+    return pLayout;
+}
+
+QLayout * CustomDialog::initAgreementRegion()
+{
+    QCheckBox* pCheckBox = new QCheckBox(tr("Read and agree"), this);
+
+    connect(pCheckBox, SIGNAL(clicked(bool)), this, SLOT(onChecked(bool)));
+
+    QPushButton* pBtnAgreement = new QPushButton(this);
+    pBtnAgreement->setObjectName("btnAgreement");
+    pBtnAgreement->setText(tr("ClassIn Agreement"));
+    pBtnAgreement->setCursor(Qt::PointingHandCursor);
+
+    //connect(pBtnAgreement, SIGNAL(clicked(bool)), this, SLOT(onAgreement()));
+
+    QHBoxLayout* pLayout = new QHBoxLayout();
+    pLayout->addWidget(pCheckBox);
+    pLayout->addSpacerItem(new QSpacerItem(2, 0, QSizePolicy::Fixed, QSizePolicy::Expanding));
+    pLayout->addWidget(pBtnAgreement);
+    pLayout->addStretch();
+    pLayout->setSpacing(0);
+    pLayout->setContentsMargins(0, 0, 0, 0);
+    return pLayout;
+}
+
+void CustomDialog::onChecked(bool bChecked)
+{
+    m_pBtnRegister->setEnabled(bChecked);
+}
+
+QLayout * CustomDialog::initButtonRegion()
+{
+    m_pBtnRegister = new QPushButton(this);
+    m_pBtnRegister->setObjectName("btnRegister");
+    m_pBtnRegister->setText(tr("Register"));
+    m_pBtnRegister->setEnabled(false);
+
+    //connect(m_pBtnRegister, SIGNAL(clicked(bool)), this, SLOT(onRegister()));
+
+    QHBoxLayout* pLayout = new QHBoxLayout;
+    pLayout->addWidget(m_pBtnRegister, 1);
+    pLayout->setAlignment(Qt::AlignCenter);
     pLayout->setSpacing(0);
     pLayout->setContentsMargins(0, 0, 0, 0);
     return pLayout;

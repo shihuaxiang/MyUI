@@ -9,7 +9,9 @@
 #include "simpledialog.h"
 #include "ui_simpledialog.h"
 #include "../shared/TitleBar.h"
+#include <QFile>
 #include <QGraphicsDropShadowEffect>
+#include <QCalendarWidget>
 
 #define SHADOW_MARGIN_SIZE (10)
 
@@ -18,6 +20,11 @@ SimpleDialog::SimpleDialog(QWidget *parent) :
     ui(new Ui::SimpleDialog)
 {
     ui->setupUi(this);
+
+    QFile qss(":/shadowdialog/images/simpledialog.qss");
+    qss.open(QFile::ReadOnly);
+    setStyleSheet(qss.readAll());
+    qss.close();
 
     initMainLayout();
 }
@@ -38,7 +45,20 @@ void SimpleDialog::initMainLayout()
     ui->verticalLayout->setContentsMargins(SHADOW_MARGIN_SIZE, SHADOW_MARGIN_SIZE, SHADOW_MARGIN_SIZE, SHADOW_MARGIN_SIZE);
     ui->verticalLayout->setSpacing(0);
 
-    ui->widget->setStyleSheet("background-color:rgba(255,255,255,255)");
+    //ui->widget->setStyleSheet("#widget{background-color:rgba(255,255,255,255)}");
+
+    QCalendarWidget *calendarWidget=new QCalendarWidget;
+    calendarWidget->setObjectName("calendarWidget");
+    calendarWidget->setFixedSize(260, 32);
+    calendarWidget->setGridVisible(false);
+    calendarWidget->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+    calendarWidget->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+    calendarWidget->setHorizontalHeaderFormat(QCalendarWidget::ShortDayNames);
+
+    ui->dateEdit->setFixedSize(260,32);
+    ui->dateEdit->setCalendarPopup(true);
+    ui->dateEdit->setCalendarWidget(calendarWidget);
+    ui->dateEdit->setDisplayFormat("yyyy-MM-dd");
 
     QGraphicsDropShadowEffect *pShadow = new QGraphicsDropShadowEffect();
     pShadow->setOffset(0, 1);
@@ -58,8 +78,7 @@ TitleBar * SimpleDialog::initTitlebar()
     sizePolicy1.setVerticalStretch(0);
     sizePolicy1.setHeightForWidth(titlebarWidget->sizePolicy().hasHeightForWidth());
     titlebarWidget->setSizePolicy(sizePolicy1);
-    titlebarWidget->setMinimumSize(QSize(0, titlebarHeight));
-    titlebarWidget->setMaximumSize(QSize(16777215, titlebarHeight));
+    titlebarWidget->setFixedHeight(titlebarHeight);
     titlebarWidget->setStyleSheet(QStringLiteral("#titlebarWidget {background-color: #434555;}"));
     titlebarWidget->init(this, titlebarHeight, SHADOW_MARGIN_SIZE);
     titlebarWidget->setTitleName(tr("SimpleDialog"));

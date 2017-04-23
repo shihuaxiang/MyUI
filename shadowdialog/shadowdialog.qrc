@@ -2,5 +2,10 @@
     <qresource prefix="/shadowdialog">
         <file>images/customdialog.qss</file>
         <file>images/cb_dropdown_gray.png</file>
+        <file>images/check_off.png</file>
+        <file>images/check_off_hover.jpg</file>
+        <file>images/check_on.png</file>
+        <file>images/check_on_hover.png</file>
+        <file>images/simpledialog.qss</file>
     </qresource>
 </RCC>

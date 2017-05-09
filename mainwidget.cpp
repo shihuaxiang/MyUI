@@ -89,7 +89,7 @@ void MainWidget::on_pushButton_0_4_clicked()
 
 void MainWidget::on_pushButton_0_5_clicked()
 {
-    qDebug() << __FUNCTION__;//0
+    qDebug() << __FUNCTION__;
 
     QString fileName = QFileDialog::getSaveFileName(this, "Save File", "", tr("PNG File(*.png);;All File(*.*)"));
     ImageFactory::createTransparentImage(10, 10, 1, fileName);
@@ -97,7 +97,32 @@ void MainWidget::on_pushButton_0_5_clicked()
     qDebug() << fileName;
 }
 
-void MainWidget::onChatButtonClicked()
+void MainWidget::on_pushButton_1_0_clicked()
+{
+    qDebug() << __FUNCTION__;
+
+}
+void MainWidget::on_pushButton_1_1_clicked()
+{
+    qDebug() << __FUNCTION__;
+
+}
+void MainWidget::on_pushButton_1_2_clicked()
+{
+    qDebug() << __FUNCTION__;
+
+}
+void MainWidget::on_pushButton_1_3_clicked()
+{
+    qDebug() << __FUNCTION__;
+
+}
+void MainWidget::on_pushButton_1_4_clicked()
+{
+    qDebug() << __FUNCTION__;
+
+}
+void MainWidget::on_pushButton_1_5_clicked()
 {
     qDebug() << __FUNCTION__;
 

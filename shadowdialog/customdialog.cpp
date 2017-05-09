@@ -62,8 +62,8 @@ void CustomDialog::initMainLayout()
 
     QGraphicsDropShadowEffect *pShadow = new QGraphicsDropShadowEffect();
     pShadow->setOffset(0, 1);
-    pShadow->setColor(QColor(0, 0, 0, 127));
-    pShadow->setBlurRadius(24);
+    pShadow->setColor(QColor(0, 0, 0, 76));
+    pShadow->setBlurRadius(SHADOW_MARGIN_SIZE);
     this->setGraphicsEffect(pShadow);
 }
 

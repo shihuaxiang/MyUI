@@ -8,6 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QT       += svg
+
 TARGET = MyUI
 TEMPLATE = app
 
@@ -24,7 +26,8 @@ SOURCES += main.cpp\
     shadowdialog/anothershadowwidget.cpp \
     diffsize/leftbar.cpp \
     diffsize/NumberButton.cpp \
-    shared/imagefactory.cpp
+    shared/imagefactory.cpp \
+    shared/ImageOp.cpp
 
 HEADERS  += \
     shared/movable.h \
@@ -39,7 +42,8 @@ HEADERS  += \
     shadowdialog/anothershadowwidget.h \
     diffsize/leftbar.h \
     diffsize/NumberButton.h \
-    shared/imagefactory.h
+    shared/imagefactory.h \
+    shared/ImageOp.h
 
 FORMS    += \
     shadowdialog/simpledialog.ui \

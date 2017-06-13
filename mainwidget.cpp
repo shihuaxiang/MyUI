@@ -8,6 +8,8 @@
 #include "shadowdialog/anothershadowwidget.h"
 #include "diffsize/leftbar.h"
 #include "shared/imagefactory.h"
+#include "container/containerwidget.h"
+#include "container/calendarwidget.h"
 
 MainWidget::MainWidget(QWidget *parent) : QWidget(parent)
 {
@@ -38,6 +40,9 @@ QGridLayout * MainWidget::initGridLayout()
             gridLayout->addWidget(pushButton, i, j, 1, 1);
         }
     }
+
+    QLayoutItem *layoutItem = gridLayout->itemAtPosition(1,0);
+    dynamic_cast<QPushButton *>(layoutItem->widget())->setText("ContainerWidget");
 
     return gridLayout;
 }
@@ -100,6 +105,10 @@ void MainWidget::on_pushButton_0_5_clicked()
 void MainWidget::on_pushButton_1_0_clicked()
 {
     qDebug() << __FUNCTION__;
+
+    ContainerWidget * w = new ContainerWidget(new CalendarWidget(), "Calendar");
+    w->resize(560,500);
+    w->show();
 
 }
 void MainWidget::on_pushButton_1_1_clicked()

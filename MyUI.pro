@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     diffsize/leftbar.cpp \
     diffsize/NumberButton.cpp \
     shared/imagefactory.cpp \
-    shared/ImageOp.cpp
+    shared/ImageOp.cpp \
+    container/containerwidget.cpp \
+    container/calendarwidget.cpp
 
 HEADERS  += \
     shared/movable.h \
@@ -43,12 +45,15 @@ HEADERS  += \
     diffsize/leftbar.h \
     diffsize/NumberButton.h \
     shared/imagefactory.h \
-    shared/ImageOp.h
+    shared/ImageOp.h \
+    container/containerwidget.h \
+    container/calendarwidget.h
 
 FORMS    += \
     shadowdialog/simpledialog.ui \
     shadowdialog/stackeddialog.ui \
-    shadowdialog/anothershadowwidget.ui
+    shadowdialog/anothershadowwidget.ui \
+    container/calendarwidget.ui
 
 RESOURCES += \
     shared/shared.qrc \
@@ -59,4 +64,5 @@ DISTFILES +=
 
 INCLUDEPATH += $$PWD/
 INCLUDEPATH += $$PWD/shared/
+INCLUDEPATH += $$PWD/container/
 

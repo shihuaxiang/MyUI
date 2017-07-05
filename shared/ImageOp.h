@@ -23,7 +23,9 @@ public:
     /**
      * @brief crop source to specific size, use svg format to antialiasing
      */
-    static QPixmap magicAvatarSvg(const QPixmap &source, const QString &maskSvgFilePath, const QSize &size);
+    static QPixmap magicAvatarSvg(const QPixmap &source, const QSize &size);
+    static QPixmap magicAvatarSvg(const QPixmap &source, const QPixmap &border);
+    static QPixmap magicAvatarSvg(const QPixmap &source, const QString &svgBorder, const QSize& svgSize);
 
     /**
      * @brief According to mask crop avatar, and then add border
@@ -36,12 +38,42 @@ public:
     static void borderAvatar(QPixmap& avatar, const QPixmap& border);
 
     /**
+     * @brief dest svg img add to default img,algin center (no border)
+     */
+    static QPixmap maskDefaultImage(const QSize& size, const QString& destSvgImg, const QSize& destSvgSize,
+                                    double opacity = 0.5, const QColor& color = QColor("F8F8F8"));
+
+    /**
+     * @brief dest svg img add to default img,algin center (have border)
+     */
+    static QPixmap maskDefaultImage(const QString& borderSvgImg, const QSize& borderSvgSize,
+                                    const QString& destSvgImg, const QSize& destSvgSize,
+                                    double opacity = 0.5, const QColor& color = QColor("F8F8F8"));
+
+    /**
+     * @brief mask srcImg
+     */
+    static QPixmap maskImage(const QPixmap& srcImg, double opacity = 0.5);
+
+    /**
      * @brief destImg add to srcImg,algin center
      */
-    static QPixmap maskImage(const QPixmap& srcImg, const QPixmap& destImg);
+    static QPixmap maskImage(const QPixmap& srcImg, const QPixmap& destImg, double opacity = 0.5);
+
+    /**
+     * @brief dest Svg Img add to srcImg,algin center
+     */
+    static QPixmap maskSvgImage(const QPixmap& srcImg, const QString& destSvgImg, const QSize& size, double opacity = 0.5);
+
+    /**
+     * @brief adjust source to specific size, use svg format to antialiasing
+     */
+    static QPixmap makeSvgPixmap(const QString fileName, const QSize &size);
 
 private:
     static int sgn(double d);
+
+	static QSize scaleSizeByDeviceRatio(const QSize &size);
 };
 
 #endif // IMAGEOP_H

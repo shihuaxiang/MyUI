@@ -1,6 +1,7 @@
 #include "numberbutton.h"
 #include <QDebug>
 #include <QPainter>
+#include "ImageOp.h"
 
 IconButton::IconButton(QWidget *parent)
     : QPushButton(parent)
@@ -71,17 +72,36 @@ void IconButton::updateIcon()
 {
     if (this->isChecked())
     {
-        this->setIcon(QIcon(m_checkedPixmap));
+        this->setIcon(makeSvgIcon(m_checkedPixmap));
     }
     else
     {
         if (status == HOVER)
-            this->setIcon(QIcon(m_hoverPixmap));
-		else if (status == PRESSED)
-			this->setIcon(QIcon(m_pressedPixmap));
+            this->setIcon(makeSvgIcon(m_hoverPixmap));
+        else if (status == PRESSED)
+            this->setIcon(makeSvgIcon(m_pressedPixmap));
         else
-            this->setIcon(QIcon(m_normalPixmap));
+            this->setIcon(makeSvgIcon(m_normalPixmap));
     }
+
+//    if (this->isChecked())
+//    {
+//        this->setIcon(QIcon(m_checkedPixmap));
+//    }
+//    else
+//    {
+//        if (status == HOVER)
+//            this->setIcon(QIcon(m_hoverPixmap));
+//		else if (status == PRESSED)
+//			this->setIcon(QIcon(m_pressedPixmap));
+//        else
+//            this->setIcon(QIcon(m_normalPixmap));
+//    }
+}
+
+QIcon IconButton::makeSvgIcon(const QString fileName)
+{
+    return QIcon(ImageOp::makeSvgPixmap(fileName, this->iconSize()));
 }
 
 NumberButton::NumberButton(QWidget *parent)

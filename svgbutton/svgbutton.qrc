@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/svgbutton">
+        <file>images/icq.svg</file>
+        <file>images/about.png</file>
+        <file>images/copy.png</file>
+        <file>images/cut.png</file>
+        <file>images/help.png</file>
+        <file>images/paste.png</file>
+        <file>images/redo.png</file>
+        <file>images/settings.png</file>
+        <file>images/undo.png</file>
+        <file>images/contacts-hover.svg</file>
+        <file>images/contacts-normal.svg</file>
+        <file>images/contacts-selected.svg</file>
+    </qresource>
+</RCC>

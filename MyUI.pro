@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     shared/imagefactory.cpp \
     shared/ImageOp.cpp \
     container/containerwidget.cpp \
-    container/calendarwidget.cpp
+    container/calendarwidget.cpp \
+    svgbutton/svglabel.cpp
 
 HEADERS  += \
     shared/movable.h \
@@ -47,7 +48,8 @@ HEADERS  += \
     shared/imagefactory.h \
     shared/ImageOp.h \
     container/containerwidget.h \
-    container/calendarwidget.h
+    container/calendarwidget.h \
+    svgbutton/svglabel.h
 
 FORMS    += \
     shadowdialog/simpledialog.ui \
@@ -58,7 +60,8 @@ FORMS    += \
 RESOURCES += \
     shared/shared.qrc \
     shadowdialog/shadowdialog.qrc \
-    diffsize/diffsize.qrc
+    diffsize/diffsize.qrc \
+    svgbutton/svgbutton.qrc
 
 DISTFILES +=
 

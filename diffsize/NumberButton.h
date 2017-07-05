@@ -26,6 +26,7 @@ protected:
 
 private:
     void updateIcon();
+    QIcon makeSvgIcon(const QString fileName);
 
     enum ButtonStatus{NORMAL, HOVER, PRESSED};
     ButtonStatus status;

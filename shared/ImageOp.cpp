@@ -1,5 +1,8 @@
-#include "ImageOp.h"
 #include <QSvgRenderer>
+#include <QApplication>
+#include <QDesktopWidget>
+
+#include "ImageOp.h"
 
 ImageOp::ImageOp()
 {
@@ -52,19 +55,45 @@ void ImageOp::magicAvatar(QPixmap &avatar, const QPixmap &mask)
     avatar = avatar.fromImage(resultImage);
 }
 
-QPixmap ImageOp::magicAvatarSvg(const QPixmap &source, const QString &maskSvgFilePath, const QSize &size)
+QPixmap ImageOp::magicAvatarSvg(const QPixmap &source, const QSize &size)
 {
-    QImage mask(size, QImage::Format_ARGB32_Premultiplied);
+    QImage mask(scaleSizeByDeviceRatio(size), QImage::Format_ARGB32_Premultiplied);
     mask.fill(Qt::transparent);
     QPainter maskPainter(&mask);
     maskPainter.setRenderHint(QPainter::Antialiasing);
-    QSvgRenderer svgRender(maskSvgFilePath);
+    QSvgRenderer svgRender(QString(":/utils/images/avatar_dest.svg"));
     svgRender.render(&maskPainter);
     maskPainter.end();
 
     QPixmap sourceCopy = source;
     magicAvatar(sourceCopy, QPixmap::fromImage(mask));
     return sourceCopy;
+}
+
+QPixmap ImageOp::magicAvatarSvg(const QPixmap &avatar, const QPixmap &border) // use border's size
+{
+    QPixmap result = magicAvatarSvg(avatar, border.size());
+    // maybe size changed in magicAvatarSvg function
+    QPixmap borderCopy = border.scaled(result.width(), result.height(), Qt::KeepAspectRatio);
+    QPainter painter(&result);
+    painter.drawPixmap(0, 0, borderCopy);
+    painter.end();
+    return result;
+}
+
+QPixmap ImageOp::magicAvatarSvg(const QPixmap &source, const QString &svgBorder, const QSize &svgSize)
+{
+    QPixmap avatar = magicAvatarSvg(source, svgSize);
+    QImage mask(scaleSizeByDeviceRatio(svgSize), QImage::Format_ARGB32_Premultiplied);
+    mask.fill(Qt::transparent);
+    QRect rc(0, 0, mask.width(), mask.height());
+    QPainter painter(&mask);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.drawPixmap(rc.adjusted(1, 1, -1, -1), avatar);
+    QSvgRenderer svgRender(svgBorder);
+    svgRender.render(&painter);
+    painter.end();
+    return QPixmap::fromImage(mask);
 }
 
 void ImageOp::magicAvatar(QPixmap &avatar, const QPixmap &mask, const QPixmap &border)
@@ -108,7 +137,52 @@ void ImageOp::borderAvatar(QPixmap &avatar, const QPixmap &border)
     avatar = avatar.fromImage(resultImage);
 }
 
-QPixmap ImageOp::maskImage(const QPixmap &srcImg, const QPixmap &destImg)
+QPixmap ImageOp::maskDefaultImage(const QSize &size, const QString &destSvgImg, const QSize &destSvgSize, double opacity, const QColor& color)
+{
+    QImage mask(scaleSizeByDeviceRatio(size), QImage::Format_ARGB32_Premultiplied);
+    mask.fill(color);
+    QPixmap avatar = magicAvatarSvg(QPixmap::fromImage(mask), size);
+    return maskSvgImage(avatar, destSvgImg, destSvgSize, opacity);
+}
+
+QPixmap ImageOp::maskDefaultImage(const QString &borderSvgImg, const QSize &borderSvgSize,
+                                  const QString &destSvgImg, const QSize &destSvgSize,
+                                  double opacity, const QColor& color)
+{
+    QImage mask(scaleSizeByDeviceRatio(borderSvgSize), QImage::Format_ARGB32_Premultiplied);
+    mask.fill(color);
+    QPixmap avatar = magicAvatarSvg(QPixmap::fromImage(mask), borderSvgImg, borderSvgSize);
+    return maskSvgImage(avatar, destSvgImg, destSvgSize, opacity);
+}
+
+QPixmap ImageOp::maskImage(const QPixmap &srcImg, double opacity)
+{
+    QPixmap resultImg = srcImg;
+    QPainter painter(&resultImg);
+
+    // add middle mask
+    QImage mask = QImage(srcImg.size(), QImage::Format_ARGB32_Premultiplied);
+    QImage lower = QImage(srcImg.size(), QImage::Format_ARGB32_Premultiplied);
+    lower.fill("#000000");
+    QPainter painterMask(&mask);
+    painterMask.setCompositionMode(QPainter::CompositionMode_Source);
+    painterMask.fillRect(mask.rect(), Qt::transparent);
+    painterMask.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    painterMask.drawPixmap(0, 0, srcImg);
+    painterMask.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    painterMask.drawImage(0, 0, lower);
+    painterMask.setCompositionMode(QPainter::CompositionMode_DestinationOver);
+    painterMask.fillRect(mask.rect(), Qt::transparent);
+    painterMask.end();
+
+    // add dest image
+    painter.setOpacity(opacity);
+    painter.drawImage(0, 0, mask);
+    painter.end();
+    return resultImg;
+}
+
+QPixmap ImageOp::maskImage(const QPixmap &srcImg, const QPixmap &destImg, double opacity)
 {
     QSize sub = srcImg.size() - destImg.size();
 
@@ -131,7 +205,7 @@ QPixmap ImageOp::maskImage(const QPixmap &srcImg, const QPixmap &destImg)
     painterMask.end();
 
     // add dest image
-    painter.setOpacity(0.3);
+    painter.setOpacity(opacity);
     painter.drawImage(0, 0, mask);
     if (!destImg.isNull())
     {
@@ -140,6 +214,58 @@ QPixmap ImageOp::maskImage(const QPixmap &srcImg, const QPixmap &destImg)
     }
     painter.end();
     return resultImg;
+}
+
+QPixmap ImageOp::maskSvgImage(const QPixmap &srcImg, const QString &destSvgImg, const QSize &size, double opacity)
+{
+    QSize destSize = scaleSizeByDeviceRatio(size);
+    QSize sub = srcImg.size() - destSize;
+
+    QPixmap resultImg = srcImg;
+    QPainter painter(&resultImg);
+
+    // add middle mask
+    QImage mask = QImage(srcImg.size(), QImage::Format_ARGB32_Premultiplied);
+    QImage lower = QImage(srcImg.size(), QImage::Format_ARGB32_Premultiplied);
+    lower.fill("#000000");
+    QPainter painterMask(&mask);
+    painterMask.setCompositionMode(QPainter::CompositionMode_Source);
+    painterMask.fillRect(mask.rect(), Qt::transparent);
+    painterMask.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    painterMask.drawPixmap(0, 0, srcImg);
+    painterMask.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    painterMask.drawImage(0, 0, lower);
+    painterMask.setCompositionMode(QPainter::CompositionMode_DestinationOver);
+    painterMask.fillRect(mask.rect(), Qt::transparent);
+    painterMask.end();
+
+    // add dest image
+    painter.setOpacity(opacity);
+    painter.drawImage(0, 0, mask);
+    if (!destSvgImg.isEmpty())
+    {
+        painter.setOpacity(1);
+        QRect rc(0, 0, mask.width(), mask.height());
+        rc.adjust(sub.width()/2, sub.height()/2, -sub.width()/2, -sub.height()/2);
+        QSvgRenderer svgRender(destSvgImg);
+        svgRender.render(&painter, rc);
+    }
+    painter.end();
+    return resultImg;
+}
+
+QPixmap ImageOp::makeSvgPixmap(const QString fileName, const QSize &size)
+{
+    QImage mask(scaleSizeByDeviceRatio(size), QImage::Format_ARGB32_Premultiplied);
+    mask.fill(Qt::transparent);
+    QPainter maskPainter(&mask);
+    maskPainter.setRenderHint(QPainter::Antialiasing);
+
+    QSvgRenderer svgRender(fileName);
+    svgRender.render(&maskPainter);
+    maskPainter.end();
+
+    return QPixmap::fromImage(mask);
 }
 
 int ImageOp::sgn(double d)
@@ -152,3 +278,8 @@ int ImageOp::sgn(double d)
         return 1;
 }
 
+QSize ImageOp::scaleSizeByDeviceRatio(const QSize &size)
+{
+	int ratio = QApplication::desktop()->devicePixelRatio();
+	return size.scaled(size.width() * ratio, size.height() * ratio, Qt::KeepAspectRatio);
+}

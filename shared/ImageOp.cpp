@@ -1,6 +1,8 @@
 #include <QSvgRenderer>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QBuffer>
+#include <QFile>
 
 #include "ImageOp.h"
 
@@ -282,4 +284,60 @@ QSize ImageOp::scaleSizeByDeviceRatio(const QSize &size)
 {
 	int ratio = QApplication::desktop()->devicePixelRatio();
 	return size.scaled(size.width() * ratio, size.height() * ratio, Qt::KeepAspectRatio);
+}
+
+QByteArray ImageOp::pixmapToByteArray(const QPixmap &pixmap, int quality)
+{
+    QByteArray bytes;
+    QBuffer buffer(&bytes);
+    buffer.open(QIODevice::WriteOnly);
+    pixmap.save(&buffer, "PNG", quality);
+
+    return bytes;
+}
+
+void ImageOp::exsampleOutput(QString text, QString pixmapFileName, QString savedFileName)
+{
+    QFile saveFile(savedFileName);
+    if (!saveFile.open(QIODevice::WriteOnly)) {
+        return;
+    }
+
+    QDataStream ds(&saveFile);
+
+    QPixmap pixmap(pixmapFileName);
+    bool b = pixmap.isNull();
+    QByteArray ba = ImageOp::pixmapToByteArray(pixmap, -1);
+
+    ds << text;
+    ds.writeBytes(ba.data(), ba.size());
+
+    saveFile.close();
+}
+
+void ImageOp::exsampleInput(QString loadFileName)
+{
+    QFile loadFile(loadFileName);
+    if (!loadFile.open(QIODevice::ReadOnly)) {
+        return;
+    }
+
+    QDataStream ds(&loadFile);
+
+    QString text;
+    QPixmap pixmap;
+
+    ds >> text;
+
+    char* pixmapDataPtr = NULL;
+    uint pixmapDataLen = 0;
+    ds.readBytes(pixmapDataPtr, pixmapDataLen);
+    pixmap.loadFromData((uchar*)pixmapDataPtr, pixmapDataLen);
+
+    if (!pixmap.isNull())
+        pixmap.save("d://1.jpg");
+
+    qDebug() << text;
+
+    loadFile.close();
 }

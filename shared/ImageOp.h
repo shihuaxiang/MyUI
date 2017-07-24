@@ -70,6 +70,10 @@ public:
      */
     static QPixmap makeSvgPixmap(const QString fileName, const QSize &size);
 
+    static QByteArray pixmapToByteArray(const QPixmap &pixmap, int quality);
+    static void exsampleOutput(QString text, QString pixmapFileName, QString savedFileName);
+    static void exsampleInput(QString loadFileName);
+
 private:
     static int sgn(double d);
 

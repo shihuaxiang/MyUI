@@ -34,7 +34,27 @@ SimpleDialog QComboBox {
     border: 1px solid #ccc;
     font-family: "\'Microsoft YaHei\'";
     font-size: 14px;
-    color: #202020;
+    color: #202020;    
+    padding-left: 20px;
+}
+
+QComboBox QAbstractItemView::item {
+    min-height: 60px;
+}
+
+QComboBox QAbstractItemView {
+    padding-left: 20px;
+    border: 1px solid darkgray;
+    selection-background-color: lightgray;
+    outline:none;
+}
+
+QComboBox::drop-down{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 15px;
+    border:none;
+    background:transparent;
 }
 
 /* button region*/

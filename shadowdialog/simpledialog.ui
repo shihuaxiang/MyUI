@@ -57,6 +57,12 @@
             <height>32</height>
            </size>
           </property>
+          <property name="iconSize">
+           <size>
+            <width>64</width>
+            <height>64</height>
+           </size>
+          </property>
           <item>
            <property name="text">
             <string>30Min</string>

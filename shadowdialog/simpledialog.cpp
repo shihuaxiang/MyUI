@@ -12,6 +12,7 @@
 #include <QFile>
 #include <QGraphicsDropShadowEffect>
 #include <QCalendarWidget>
+#include <QStyledItemDelegate>
 
 #define SHADOW_MARGIN_SIZE (10)
 
@@ -25,6 +26,9 @@ SimpleDialog::SimpleDialog(QWidget *parent) :
     qss.open(QFile::ReadOnly);
     setStyleSheet(qss.readAll());
     qss.close();
+
+    QStyledItemDelegate *delegate = new QStyledItemDelegate(this);
+    ui->comboBox->setItemDelegate(delegate);
 
     initMainLayout();
 }

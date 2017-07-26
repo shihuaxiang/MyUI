@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QT       += svg
+QT       += svg network
 
 TARGET = MyUI
 TEMPLATE = app
@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     shared/ImageOp.cpp \
     container/containerwidget.cpp \
     container/calendarwidget.cpp \
-    svgbutton/svglabel.cpp
+    svgbutton/svglabel.cpp \
+    httppost/httppostwin.cpp
 
 HEADERS  += \
     shared/movable.h \
@@ -49,13 +50,15 @@ HEADERS  += \
     shared/ImageOp.h \
     container/containerwidget.h \
     container/calendarwidget.h \
-    svgbutton/svglabel.h
+    svgbutton/svglabel.h \
+    httppost/httppostwin.h
 
 FORMS    += \
     shadowdialog/simpledialog.ui \
     shadowdialog/stackeddialog.ui \
     shadowdialog/anothershadowwidget.ui \
-    container/calendarwidget.ui
+    container/calendarwidget.ui \
+    httppost/httppostwin.ui
 
 RESOURCES += \
     shared/shared.qrc \
